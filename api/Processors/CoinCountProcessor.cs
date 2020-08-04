@@ -14,19 +14,15 @@ public class CoinCountProcessor : ICoinCountProcessor
 
     public CoinCount GetCoinCounts(decimal value)
     {
-        var CentsRemaining = value * 100;
-        var FinalValues = new CoinCount();
+        var CentsRemaining = value * 100; //convert to cents
+        var FinalValues = new CoinCount(); //init
 
         foreach (CoinType coin in CoinTypes){
-            if(coin.Value == 1){
-                FinalValues.GetType().GetProperty(coin.Name).SetValue(FinalValues, decimal.ToInt32(CentsRemaining));
-            } else {
                 var count = CentsRemaining / coin.Value;
                 //set the count value in the data to be returned
                 FinalValues.GetType().GetProperty(coin.Name).SetValue(FinalValues, decimal.ToInt32(count));
                 //remove the counted cents from CentsRemaining
                 CentsRemaining = CentsRemaining % coin.Value;
-            }
         }
 
         return FinalValues;

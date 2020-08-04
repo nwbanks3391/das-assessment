@@ -11,18 +11,24 @@ namespace api.Controllers
     [Route("[controller]")]
     public class CoinCountController : ControllerBase
     {
-        private readonly ILogger<CoinCountController> _logger;
+        private readonly ICoinCountProcessor _processor;
 
-        public CoinCountController(ILogger<CoinCountController> logger)
+        public CoinCountController(ICoinCountProcessor processor)
         {
-            _logger = logger;
+            _processor = processor;
         }
 
-        [HttpGet]
-        public CoinCount Get()
-        {
-            var CoinCounts = new CoinCount();
-            return CoinCounts;
+        // [HttpGet]
+        // public string Get()
+        // {
+        //     return "Hello World!";
+        // }
+
+        [HttpPost]
+        public CoinCount Post([FromBody] TotalValue data) {
+            var counts = new CoinCount();
+            counts = _processor.GetCoinCounts(data.Value);
+            return counts;
         }
     }
 }

@@ -34,6 +34,11 @@ namespace api
         {
             if (env.IsDevelopment())
             {
+                app.UseCors(x => x
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true) // allow any origin
+                    );
                 app.UseDeveloperExceptionPage();
             }
 

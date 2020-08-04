@@ -1,10 +1,10 @@
 import React from 'react';
-import { Input } from 'semantic-ui-react'
 
-const AmountField = () => {
+const AmountField = (props) => {
     return (
         <div>
-            <Input placeholder="Enter an Amount..."/>
+            Input placeholder
+            Button placeholder
         </div>
     );
 };

@@ -19,12 +19,6 @@ namespace CoinsAPI.Controllers
             _processor = processor;
         }
 
-        // [HttpGet]
-        // public string Get()
-        // {
-        //     return "Hello World!";
-        // }
-
         [HttpPost]
         public CoinCount Post([FromBody] TotalValue data)
         {

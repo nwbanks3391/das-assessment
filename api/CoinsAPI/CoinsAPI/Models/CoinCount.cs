@@ -1,6 +1,9 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace api
+namespace CoinsAPI.Models
 {
     public class CoinCount
     {
@@ -10,6 +13,5 @@ namespace api
         public int Dime { get; set; }
         public int Nickel { get; set; }
         public int Penny { get; set; }
-
     }
 }

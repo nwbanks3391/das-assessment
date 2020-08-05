@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using CoinsAPI.Interfaces;
+using CoinsAPI.Models;
 
-namespace api.Controllers
+namespace CoinsAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -25,9 +26,9 @@ namespace api.Controllers
         // }
 
         [HttpPost]
-        public CoinCount Post([FromBody] TotalValue data) {
-            var counts = new CoinCount();
-            counts = _processor.GetCoinCounts(data.Value);
+        public CoinCount Post([FromBody] TotalValue data)
+        {
+            var counts = _processor.GetCoinCounts(data.Value);
             return counts;
         }
     }

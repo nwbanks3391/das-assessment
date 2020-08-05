@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios'
 import { Container, Header } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 import AmountField from '../components/AmountField';
+import ValueDisplay from '../components/ValueDisplay';
 
 const Background = styled.div`
     background-color: #DAF4F0;
@@ -27,17 +28,22 @@ const CoinCounts = () => {
     const [amount, setAmount] = useState('');
     const [counts, setCounts] = useState({});
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    let typingTimer = null;
 
     const handleAmountChange = (e) => {
         const val = e.target.value;
         setAmount(val)
     }
 
-    const handleSubmit = () => {
+    const handleRequest = () => {
         const amt = parseFloat((Math.floor(parseFloat(amount) * 100) / 100).toFixed(2)) //set this way to prevent rounding
         const data = {
             Value: amt
         }
+        console.log(data)
+        setLoading(true)
+        setError(false)
         // axios.post('https://localhost:5001/coincount', data).then((response) => {
         axios({
             method: 'post',
@@ -48,8 +54,11 @@ const CoinCounts = () => {
                 'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
             }}).then((response) => {
             setCounts(response.data);
+            setLoading(false);
         }).catch((error)=> {
             console.log(error)
+            setLoading(false)
+            setError(true)
         })
     }
 
@@ -59,21 +68,12 @@ const CoinCounts = () => {
                 <Header as='h1'>
                     Coin Count Optimizer
                 </Header>
-                <p>To be beautified tomorrow morning</p>
+                <p>Enter an amount of Dollars and Cents:</p>
                 <br/>
-                <input value={amount} onChange={handleAmountChange}></input>
-                <button onClick={handleSubmit}>Submit</button>
+                <AmountField onChange={handleAmountChange} onSubmit={handleRequest}/>
                 {//separate this into its own component for structure
                     counts.silverDollar ? 
-                    <React.Fragment>
-                        <p>COINS:</p>
-                        <p>Silver Dollars: {counts.silverDollar}</p>
-                        <p>Half Dollars: {counts.halfDollar}</p>
-                        <p>Quarters: {counts.quarter}</p>
-                        <p>Dimes: {counts.dime}</p>
-                        <p>Nickels: {counts.nickel}</p>
-                        <p>Pennies: {counts.penny}</p>
-                    </React.Fragment>
+                        <ValueDisplay data={counts}/>
                     : ''
                 }
             </StyledContainer>

@@ -37,13 +37,14 @@ namespace CoinsAPI
         {
             if (env.IsDevelopment())
             {
-                app.UseCors(x => x
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .SetIsOriginAllowed(origin => true) // allow any origin
-                    );
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                );
 
             app.UseHttpsRedirection();
 

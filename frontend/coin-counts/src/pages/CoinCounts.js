@@ -38,11 +38,18 @@ const CoinCounts = () => {
         const data = {
             Value: amt
         }
-        console.log(data)
-        axios.post('https://localhost:5001/coincount', data).then((response) => {
+        // axios.post('https://localhost:5001/coincount', data).then((response) => {
+        axios({
+            method: 'post',
+            url: 'http://nwb-das-api.azurewebsites.net/coincount', 
+            data: data,
+            headers: {
+                'Access-Control-Allow-Origin' : '*',
+                'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            }}).then((response) => {
             setCounts(response.data);
-        }).catch(()=> {
-            console.log('error')
+        }).catch((error)=> {
+            console.log(error)
         })
     }
 

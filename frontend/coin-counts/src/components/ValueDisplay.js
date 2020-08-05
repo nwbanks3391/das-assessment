@@ -1,10 +1,17 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react'
+import styled from 'styled-components'
+
+
+const StyledAmount = styled.h3`
+    font-weight: bold;
+    margin-top: 15px;
+`
 
 const ValueDisplay = (props) => {
     return (
         <React.Fragment>
-            <p>Amount: ${props.amount}</p>
+            <StyledAmount>Amount: ${props.amount}</StyledAmount>
             <Table celled>
                 <Table.Header>
                     <Table.Row>
